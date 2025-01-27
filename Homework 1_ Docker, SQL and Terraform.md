@@ -9,8 +9,8 @@ What's the version of `pip` in the image?
 - 24.3.1
 - 24.2.1
 - 23.3.1
-- 23.2.1<br>
-![image](https://github.com/user-attachments/assets/ca379982-f304-4278-823a-2c4e9875a814)
+- 23.2.1<br><br>
+![image](https://github.com/user-attachments/assets/ca379982-f304-4278-823a-2c4e9875a814)<br><br>
 Answer: 24.3.1
 
 ## Question 2. Understanding Docker networking and docker-compose
