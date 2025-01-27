@@ -6,10 +6,8 @@ Run docker with the `python:3.12.8` image in an interactive mode, use the entryp
 
 What's the version of `pip` in the image?
 
-**- 24.3.1**
-- 24.2.1
-- 23.3.1
-- 23.2.1
+Answer: - 24.3.1
+
 ![image](https://github.com/user-attachments/assets/ca379982-f304-4278-823a-2c4e9875a814)
 
 
