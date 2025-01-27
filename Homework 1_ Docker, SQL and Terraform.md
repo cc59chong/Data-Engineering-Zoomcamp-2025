@@ -57,6 +57,8 @@ volumes:
 
 If there are more than one answers, select only one of them
 
+Answer: db:5432<br><br>
+This is because the db service runs the Postgres database and exposes port 5432 internally in the docker-compose.yaml file. Since the pgadmin service is in the same Docker network as the db service, it can communicate with the db service using the service name (db) and internal port number (5432).<br><br>
 ##  Prepare Postgres
 
 Run Postgres and load data as shown in the videos
