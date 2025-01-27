@@ -154,7 +154,7 @@ Which were the top pickup locations with over 13,000 in
 `total_amount` (across all trips) for 2019-10-18?
 
 Consider only `lpep_pickup_datetime` when filtering by date.
-'''
+```
 SELECT 
     z.Zone AS pickup_zone,
     SUM(g.total_amount) AS total_amount_sum
@@ -166,7 +166,7 @@ GROUP BY z.Zone
 HAVING SUM(g.total_amount) > 13000
 ORDER BY total_amount_sum DESC;
 LIMIT 3;
-'''
+```
 Answer: East Harlem North, East Harlem South, Morningside Heights
 
 
