@@ -80,8 +80,8 @@ You can use the code from the course. It's up to you whether
 you want to use Jupyter or a python script.
 
 **1.Start the Docker Compose services:**
-Use Docker Compose to start the PostgreSQL and pgAdmin services in detached mode. ```docker-compose up -d
-```
+Use Docker Compose to start the PostgreSQL and pgAdmin services in detached mode. 
+```docker-compose up -d```
 
 **2.Build the data ingestion Docker image:**
 Build the custom Docker image for the data ingestion task using the provided Dockerfile.
