@@ -113,20 +113,18 @@ During the period of October 1st 2019 (inclusive) and November 1st 2019 (exclusi
         WHEN trip_distance > 3 AND trip_distance <= 7 THEN 'Between 3 and 7 miles'
         WHEN trip_distance > 7 AND trip_distance <= 10 THEN 'Between 7 and 10 miles'
         WHEN trip_distance > 10 THEN 'Over 10 miles'
-    END AS trip_distance_range,
+    END AS distance_category,
     COUNT(*) AS trip_count
 FROM 
     green_taxi_trips
 WHERE 
-    (CAST(lpep_dropoff_datetime AS DATE) >= '2019-10-01') AND (CAST(lpep_dropoff_datetime AS DATE) < '2019-11-01')
+    (CAST(lpep_pickup_datetime  AS DATE) >= '2019-10-01') AND (CAST(lpep_pickup_datetime  AS DATE) < '2019-11-01')
 GROUP BY 
-    trip_distance_range
+    distance_category
 ORDER BY 
-    trip_distance_range;
+    distance_category DESC;
 ```
-Answers: 104,802;  198,924;  109,603;  27,678;  35,189
-
-
+Answers: 104,838; 199,013; 109,645; 27,688; 35,202
 
 ## Question 4. Longest trip for each day
 
@@ -135,10 +133,19 @@ Use the pick up time for your calculations.
 
 Tip: For every day, we only care about one single trip with the longest distance. 
 
-- 2019-10-11
-- 2019-10-24
-- 2019-10-26
-- 2019-10-31
+'''
+SELECT 
+    CAST(lpep_pickup_datetime AS DATE) AS longest_trip_distance
+FROM 
+    green_taxi_trips
+GROUP BY 
+    CAST(lpep_pickup_datetime AS DATE)
+ORDER BY 
+    MAX(trip_distance) DESC
+LIMIT 1;
+'''
+
+ Answer: 2019-10-31
 
 
 ## Question 5. Three biggest pickup zones
@@ -147,11 +154,20 @@ Which were the top pickup locations with over 13,000 in
 `total_amount` (across all trips) for 2019-10-18?
 
 Consider only `lpep_pickup_datetime` when filtering by date.
- 
-- East Harlem North, East Harlem South, Morningside Heights
-- East Harlem North, Morningside Heights
-- Morningside Heights, Astoria Park, East Harlem South
-- Bedford, East Harlem North, Astoria Park
+'''
+SELECT 
+    z.Zone AS pickup_zone,
+    SUM(g.total_amount) AS total_amount_sum
+FROM green_taxi_trips g
+JOIN taxi_zones z
+  ON g.PULocationID = z.LocationID
+WHERE CAST(g.lpep_pickup_datetime AS DATE) = '2019-10-18'
+GROUP BY z.Zone
+HAVING SUM(g.total_amount) > 13000
+ORDER BY total_amount_sum DESC;
+LIMIT 3;
+'''
+Answer: East Harlem North, East Harlem South, Morningside Heights
 
 
 ## Question 6. Largest tip
@@ -164,10 +180,23 @@ Note: it's `tip` , not `trip`
 
 We need the name of the zone, not the ID.
 
-- Yorkville West
-- JFK Airport
-- East Harlem North
-- East Harlem South
+```SELECT
+    drop_zone.Zone AS dropoff_zone,
+    g.tip_amount
+FROM green_taxi_trips g
+JOIN taxi_zones pu_zone 
+    ON g.PULocationID = pu_zone.LocationID
+JOIN zones drop_zone
+    ON g.DOLocationID = drop_zone.LocationID
+WHERE pu_zone.Zone = 'East Harlem North'
+  AND CAST(g.lpep_pickup_datetime AS DATE) >= '2019-10-01'
+  AND CAST(g.lpep_pickup_datetime AS DATE) < '2019-11-01'
+ORDER BY g.tip_amount DESC
+LIMIT 1;
+```
+
+Answer: JFK Airport
+
 
 
 ## Terraform
@@ -188,13 +217,10 @@ Which of the following sequences, **respectively**, describes the workflow for:
 2. Generating proposed changes and auto-executing the plan
 3. Remove all resources managed by terraform`
 
-Answers:
-- terraform import, terraform apply -y, terraform destroy
-- teraform init, terraform plan -auto-apply, terraform rm
-- terraform init, terraform run -auto-approve, terraform destroy
-- terraform init, terraform apply -auto-approve, terraform destroy
-- terraform import, terraform apply -y, terraform rm
-
+Answers: terraform init, terraform apply -auto-approve, terraform destroy<br><br>
+terraform init: Downloads provider plugins and sets up the backend. <br>
+terraform apply -auto-approve: Generates the execution plan and automatically applies it (i.e., no manual approval required). <br>
+terraform destroy: Removes all resources previously managed by Terraform.
 
 ## Submitting the solutions
 
