@@ -106,7 +106,14 @@ During the period of October 1st 2019 (inclusive) and November 1st 2019 (exclusi
 4. In between 7 (exclusive) and 10 miles (inclusive),
 5. Over 10 miles 
 
-```SELECT 
+- 104,802;  197,670;  110,612;  27,831;  35,281
+- 104,802;  198,924;  109,603;  27,678;  35,189
+- 104,793;  201,407;  110,612;  27,831;  35,281
+- 104,793;  202,661;  109,603;  27,678;  35,189
+- 104,838;  199,013;  109,645;  27,688;  35,202
+- 
+```
+SELECT 
     CASE 
         WHEN trip_distance <= 1 THEN 'Up to 1 mile'
         WHEN trip_distance > 1 AND trip_distance <= 3 THEN 'Between 1 and 3 miles'
@@ -133,6 +140,11 @@ Use the pick up time for your calculations.
 
 Tip: For every day, we only care about one single trip with the longest distance. 
 
+- 2019-10-11
+- 2019-10-24
+- 2019-10-26
+- 2019-10-31
+
 ```
 SELECT 
     CAST(lpep_pickup_datetime AS DATE) AS longest_trip_distance
@@ -154,6 +166,12 @@ Which were the top pickup locations with over 13,000 in
 `total_amount` (across all trips) for 2019-10-18?
 
 Consider only `lpep_pickup_datetime` when filtering by date.
+
+- East Harlem North, East Harlem South, Morningside Heights
+- East Harlem North, Morningside Heights
+- Morningside Heights, Astoria Park, East Harlem South
+- Bedford, East Harlem North, Astoria Park
+  
 ```
 SELECT 
     z.Zone AS pickup_zone,
@@ -180,6 +198,11 @@ Note: it's `tip` , not `trip`
 
 We need the name of the zone, not the ID.
 
+- Yorkville West
+- JFK Airport
+- East Harlem North
+- East Harlem South
+  
 ```SELECT
     drop_zone.Zone AS dropoff_zone,
     g.tip_amount
@@ -217,6 +240,12 @@ Which of the following sequences, **respectively**, describes the workflow for:
 2. Generating proposed changes and auto-executing the plan
 3. Remove all resources managed by terraform`
 
+- terraform import, terraform apply -y, terraform destroy
+- teraform init, terraform plan -auto-apply, terraform rm
+- terraform init, terraform run -auto-approve, terraform destroy
+- terraform init, terraform apply -auto-approve, terraform destroy
+- terraform import, terraform apply -y, terraform rm
+  
 Answers: terraform init, terraform apply -auto-approve, terraform destroy<br><br>
 terraform init: Downloads provider plugins and sets up the backend. <br>
 terraform apply -auto-approve: Generates the execution plan and automatically applies it (i.e., no manual approval required). <br>
