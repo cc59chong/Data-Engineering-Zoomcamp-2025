@@ -94,6 +94,7 @@ Run the data ingestion container to start importing data into the PostgreSQL dat
 Check the status of the PostgreSQL service to confirm that it is running correctly.
 ```docker-compose ps```
 ![image](https://github.com/user-attachments/assets/5b7a830e-a174-4d4c-83a2-ca5c5e7d77c1)
+![image](https://github.com/user-attachments/assets/835bac20-feba-4f0a-b136-702413cf12be)
 ![image](https://github.com/user-attachments/assets/6b9df2e9-91f2-4b2d-bc14-907ae419abc1)
 
 ## Question 3. Trip Segmentation Count
@@ -105,13 +106,26 @@ During the period of October 1st 2019 (inclusive) and November 1st 2019 (exclusi
 4. In between 7 (exclusive) and 10 miles (inclusive),
 5. Over 10 miles 
 
-Answers:
+```SELECT 
+    CASE 
+        WHEN trip_distance <= 1 THEN 'Up to 1 mile'
+        WHEN trip_distance > 1 AND trip_distance <= 3 THEN 'Between 1 and 3 miles'
+        WHEN trip_distance > 3 AND trip_distance <= 7 THEN 'Between 3 and 7 miles'
+        WHEN trip_distance > 7 AND trip_distance <= 10 THEN 'Between 7 and 10 miles'
+        WHEN trip_distance > 10 THEN 'Over 10 miles'
+    END AS trip_distance_range,
+    COUNT(*) AS trip_count
+FROM 
+    green_taxi_trips
+WHERE 
+    (CAST(lpep_dropoff_datetime AS DATE) >= '2019-10-01') AND (CAST(lpep_dropoff_datetime AS DATE) < '2019-11-01')
+GROUP BY 
+    trip_distance_range
+ORDER BY 
+    trip_distance_range;
+```
+Answers: 104,802;  198,924;  109,603;  27,678;  35,189
 
-- 104,802;  197,670;  110,612;  27,831;  35,281
-- 104,802;  198,924;  109,603;  27,678;  35,189
-- 104,793;  201,407;  110,612;  27,831;  35,281
-- 104,793;  202,661;  109,603;  27,678;  35,189
-- 104,838;  199,013;  109,645;  27,688;  35,202
 
 
 ## Question 4. Longest trip for each day
