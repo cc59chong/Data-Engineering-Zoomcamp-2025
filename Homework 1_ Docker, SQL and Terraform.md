@@ -85,13 +85,16 @@ Use Docker Compose to start the PostgreSQL and pgAdmin services in detached mode
 
 **2.Build the data ingestion Docker image:**
 Build the custom Docker image for the data ingestion task using the provided Dockerfile.
+```docker build -t taxi_ingest:hw1 .```
 
 **3.Run the data ingestion task:**
 Run the data ingestion container to start importing data into the PostgreSQL database from the specified URLs.
 
 **4.Check the status of the PostgreSQL service:**
 Check the status of the PostgreSQL service to confirm that it is running correctly.
-
+```docker-compose ps```
+![image](https://github.com/user-attachments/assets/5b7a830e-a174-4d4c-83a2-ca5c5e7d77c1)
+![image](https://github.com/user-attachments/assets/6b9df2e9-91f2-4b2d-bc14-907ae419abc1)
 
 ## Question 3. Trip Segmentation Count
 
