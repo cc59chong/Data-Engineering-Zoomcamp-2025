@@ -79,6 +79,20 @@ Download this data and put it into Postgres.
 You can use the code from the course. It's up to you whether
 you want to use Jupyter or a python script.
 
+**1.Start the Docker Compose services:**
+Use Docker Compose to start the PostgreSQL and pgAdmin services in detached mode. ```docker-compose up -d
+```
+
+**2.Build the data ingestion Docker image:**
+Build the custom Docker image for the data ingestion task using the provided Dockerfile.
+
+**3.Run the data ingestion task:**
+Run the data ingestion container to start importing data into the PostgreSQL database from the specified URLs.
+
+**4.Check the status of the PostgreSQL service:**
+Check the status of the PostgreSQL service to confirm that it is running correctly.
+
+
 ## Question 3. Trip Segmentation Count
 
 During the period of October 1st 2019 (inclusive) and November 1st 2019 (exclusive), how many trips, **respectively**, happened:
