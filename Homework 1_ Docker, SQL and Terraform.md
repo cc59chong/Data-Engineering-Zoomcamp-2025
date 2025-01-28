@@ -203,7 +203,8 @@ We need the name of the zone, not the ID.
 - East Harlem North
 - East Harlem South
   
-```SELECT
+```
+SELECT
     drop_zone.Zone AS dropoff_zone,
     g.tip_amount
 FROM green_taxi_trips g
