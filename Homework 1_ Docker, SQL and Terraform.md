@@ -1,4 +1,4 @@
-# Module 1 Homework: Docker & SQL
+# Module 1 Homework: Docker, SQL & Terraform
 
 ## Question 1. Understanding docker first run 
 
