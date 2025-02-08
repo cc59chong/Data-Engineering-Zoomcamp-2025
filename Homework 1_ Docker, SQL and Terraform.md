@@ -111,7 +111,7 @@ During the period of October 1st 2019 (inclusive) and November 1st 2019 (exclusi
 - 104,793;  201,407;  110,612;  27,831;  35,281
 - 104,793;  202,661;  109,603;  27,678;  35,189
 - 104,838;  199,013;  109,645;  27,688;  35,202
-- 
+ 
 ```
 SELECT 
     CASE 
@@ -131,7 +131,8 @@ GROUP BY
 ORDER BY 
     distance_category DESC;
 ```
-Answers: 104,838; 199,013; 109,645; 27,688; 35,202
+Answers: 104,838; 199,013; 109,645; 27,688; 35,202 X <br>
+Correct Answer: 104,802; 198,924; 109,603; 27,678; 35,189
 
 ## Question 4. Longest trip for each day
 
